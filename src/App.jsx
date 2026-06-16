@@ -109,101 +109,133 @@ const dictionaryData = [
     easyDetailId: "Bayangkan di sekolah cuma ada 3 anak yang jualan kartu Pokémon. Karena mereka cuma bertiga, mereka diam-diam bisa janjian bareng buat mahalin harga kartunya.", easyDetailEn: "Imagine at school only 3 kids sell Pokémon cards. Because there's only a few of them, they can secretly agree to make the cards super expensive together."
   },
   // Item di bawah ini nggak dikasih teks easy biar otomatis pakai fungsi fallback (pake teks pro)
-  {
+ {
     term: "Price Ceiling", category: "Ekonomi",
     shortId: "Batas harga tertinggi yang ditetapkan pemerintah.", shortEn: "Maximum legal price set by the government.",
     detailId: "Price Ceiling atau Harga Eceran Tertinggi adalah harga maksimum yang sah yang diizinkan untuk dijual atas suatu barang atau jasa, biasanya bertujuan untuk melindungi konsumen.",
-    detailEn: "A price ceiling is a government-imposed price control, or limit, on how high a price is charged for a product."
+    detailEn: "A price ceiling is a government-imposed price control, or limit, on how high a price is charged for a product.",
+    easyShortId: "Batas harga paling mahal biar pembeli nggak tekor.", easyShortEn: "The highest price allowed so buyers don't go broke.",
+    easyDetailId: "Pemerintah bikin aturan: 'Harga obat ini maksimal Rp10.000, nggak boleh lebih!' Tujuannya biar orang miskin tetap bisa beli obat saat sakit tanpa jatuh melarat.", easyDetailEn: "The government sets a rule: 'This medicine costs $1 max!' This helps sick people afford it without going broke."
   },
   {
     term: "Price Floor", category: "Ekonomi",
     shortId: "Batas harga terendah yang ditetapkan pemerintah.", shortEn: "Minimum legal price set by the government.",
     detailId: "Price Floor atau Harga Dasar Minimum adalah batas bawah yang ditetapkan pemerintah terhadap harga suatu barang atau jasa, biasanya untuk melindungi produsen (seperti UMP untuk tenaga kerja).",
-    detailEn: "A price floor is a government- or group-imposed price control or limit on how low a price can be charged for a product."
+    detailEn: "A price floor is a government- or group-imposed price control or limit on how low a price can be charged for a product.",
+    easyShortId: "Batas harga paling murah biar penjual/pekerja nggak rugi.", easyShortEn: "The lowest price allowed so sellers don't lose money.",
+    easyDetailId: "Pemerintah bilang: 'Gaji pegawai minimal Rp4 Juta sebulan, dilarang bayar lebih murah!' Biar pegawainya tetap bisa makan enak dan bayar kosan.", easyDetailEn: "The government says: 'Workers must be paid at least $10 a day!' This makes sure the workers can still buy food."
   },
   {
     term: "Gross National Product (GNP)", category: "Ekonomi",
     shortId: "Total nilai barang & jasa yang diproduksi oleh warga negara.", shortEn: "Total value of goods produced by a country's citizens.",
     detailId: "Produk Nasional Bruto (PNB) adalah total nilai barang dan jasa akhir yang diproduksi oleh warga negara suatu negara, baik yang berada di dalam negeri maupun di luar negeri.",
-    detailEn: "Gross National Product is an estimate of total value of all the final products and services turned out in a given period by the means of production owned by a country's residents."
+    detailEn: "Gross National Product is an estimate of total value of all the final products and services turned out in a given period by the means of production owned by a country's residents.",
+    easyShortId: "Total karya yang dibuat oleh warga negara kita di manapun.", easyShortEn: "Total value of things made by our citizens everywhere.",
+    easyDetailId: "Kalau teman sekelasmu jago bikin layangan dan dia jualan layangan itu sampai ke Amerika, itu tetap dihitung sebagai karya sekolahmu. GNP itu menghitung dompet orangnya, bukan tempatnya.", easyDetailEn: "If your friend sells kites in America, it still counts as your school's success. GNP tracks the people, not the location."
   },
   {
     term: "Price Elasticity of Demand", category: "Ekonomi",
     shortId: "Tingkat kepekaan permintaan terhadap perubahan harga.", shortEn: "Responsiveness of quantity demanded to a change in price.",
     detailId: "Elastisitas Harga Permintaan mengukur seberapa besar jumlah barang yang diminta berubah ketika harga barang tersebut mengalami perubahan.",
-    detailEn: "Price elasticity of demand is a measure used in economics to show the responsiveness, or elasticity, of the quantity demanded of a good or service to a change in its price."
+    detailEn: "Price elasticity of demand is a measure used in economics to show the responsiveness, or elasticity, of the quantity demanded of a good or service to a change in its price.",
+    easyShortId: "Seberapa gampang pembeli kabur kalau harga dinaikin.", easyShortEn: "How easily buyers run away when prices go up.",
+    easyDetailId: "Kalau harga beras naik, orang terpaksa tetap beli karena butuh makan (nggak elastis). Tapi kalau harga permen naik 2 kali lipat, orang mending nggak jajan (sangat elastis).", easyDetailEn: "If rice gets expensive, people still buy it to survive. But if candy gets expensive, kids just stop buying it. Candy is elastic!"
   },
   {
     term: "Perfect Competition", category: "Ekonomi",
     shortId: "Pasar persaingan sempurna dengan banyak pembeli & penjual.", shortEn: "Market with many buyers and sellers of identical products.",
     detailId: "Persaingan Sempurna adalah struktur pasar teoretis di mana terdapat banyak pembeli dan penjual, produk bersifat homogen, dan tidak ada satu entitas pun yang dapat memengaruhi harga.",
-    detailEn: "Perfect competition is a theoretical market structure in which all firms sell an identical product, market share does not influence price, and buyers have complete information."
+    detailEn: "Perfect competition is a theoretical market structure in which all firms sell an identical product, market share does not influence price, and buyers have complete information.",
+    easyShortId: "Banyak banget yang jualan barang yang persis sama.", easyShortEn: "Lots of people selling the exact same thing.",
+    easyDetailId: "Bayangkan di satu pasar ada 100 orang jualan tomat yang bentuk dan rasanya persis sama. Nggak ada satu pun penjual yang bisa seenaknya naikin harga, karena pembeli gampang pindah ke lapak sebelah.", easyDetailEn: "Imagine 100 people selling the exact same tomato. No seller can raise their price, because buyers will just go to the next stall."
   },
   {
     term: "Monopolistic Competition", category: "Ekonomi",
     shortId: "Banyak penjual dengan produk yang dapat dibedakan.", shortEn: "Many sellers offering differentiated products.",
     detailId: "Persaingan Monopolistik adalah jenis persaingan di mana banyak produsen menjual produk yang berbeda satu sama lain (diferensiasi produk) sehingga mereka bukan substitusi sempurna.",
-    detailEn: "Monopolistic competition is a type of imperfect competition such that many producers sell products that are differentiated from one another."
+    detailEn: "Monopolistic competition is a type of imperfect competition such that many producers sell products that are differentiated from one another.",
+    easyShortId: "Banyak penjual, tapi barangnya beda-beda gaya.", easyShortEn: "Many sellers, but their items have different styles.",
+    easyDetailId: "Kaya tukang jualan sepatu sneakers. Ada banyak merek (Nike, Adidas, dll), tapi setiap sepatu punya desain dan kenyamanan yang beda biar orang ngerasa ada alasan buat beli.", easyDetailEn: "Like shoe sellers. There are many brands, but each shoe has a different design so you feel a special reason to buy theirs."
   },
   {
     term: "Deadweight Loss", category: "Ekonomi",
     shortId: "Kerugian efisiensi ekonomi akibat inefisiensi pasar.", shortEn: "Loss of economic efficiency due to market inefficiency.",
     detailId: "Deadweight Loss (Kerugian Beban Baku) adalah kerugian surplus ekonomi (konsumen dan produsen) yang terjadi akibat inefisiensi pasar, seperti pajak, subsidi, atau monopoli.",
-    detailEn: "A deadweight loss is a cost to society created by market inefficiency, which occurs when supply and demand are out of equilibrium."
+    detailEn: "A deadweight loss is a cost to society created by market inefficiency, which occurs when supply and demand are out of equilibrium.",
+    easyShortId: "Porsi kue yang jatuh ke tanah dan terbuang sia-sia.", easyShortEn: "The piece of pie that falls and gets wasted.",
+    easyDetailId: "Kondisi rugi bareng. Penjual gagal jualan, pembeli gagal beli, kayak ada sepotong kue yang jatuh ke lantai dan nggak bisa dimakan siapa-siapa gara-gara aturan pajak yang salah atau kemahalan.", easyDetailEn: "A total lose-lose. Sellers can't sell, buyers can't buy. It's like a slice of pie falling on the floor that nobody gets to eat."
   },
   {
     term: "Externality", category: "Ekonomi",
     shortId: "Dampak pihak ketiga dari suatu aktivitas ekonomi.", shortEn: "Third-party effect from an economic activity.",
     detailId: "Eksternalitas adalah biaya atau manfaat yang ditanggung atau diterima oleh pihak ketiga yang tidak terlibat langsung dalam suatu transaksi ekonomi (misalnya polusi sebagai eksternalitas negatif).",
-    detailEn: "An externality is a cost or benefit caused by a producer that is not financially incurred or received by that producer."
+    detailEn: "An externality is a cost or benefit caused by a producer that is not financially incurred or received by that producer.",
+    easyShortId: "Dampak nyasar ke tetangga yang nggak ikut-ikutan.", easyShortEn: "A stray effect hitting an uninvolved neighbor.",
+    easyDetailId: "Kamu nyetel musik rock kenceng-kenceng (kamu senang), tapi tetanggamu jadi nggak bisa tidur nyenyak. Tetanggamu kena dampak negatif dari sesuatu yang nggak dia beli atau minta.", easyDetailEn: "You play loud rock music (you feel happy), but your neighbor can't sleep. They get a negative effect from something they didn't ask for."
   },
   {
     term: "Public Goods", category: "Ekonomi",
     shortId: "Barang yang non-eksklusif dan non-rival dalam konsumsi.", shortEn: "Goods that are non-excludable and non-rivalrous.",
     detailId: "Barang Publik adalah barang atau jasa yang disediakan tanpa keuntungan bagi semua anggota masyarakat, ditandai dengan sifat tidak dapat dikecualikan (non-excludable) dan konsumsinya tidak bersaing (non-rivalrous).",
-    detailEn: "A public good is a product that one individual can consume without reducing its availability to another individual, and from which no one is excluded."
+    detailEn: "A public good is a product that one individual can consume without reducing its availability to another individual, and from which no one is excluded.",
+    easyShortId: "Fasilitas gratis yang bisa dipakai bareng-bareng sama siapapun.", easyShortEn: "Free stuff that everyone can use together.",
+    easyDetailId: "Seperti lampu jalan raya atau taman kota. Kamu bisa menikmati cahaya lampunya, dan itu nggak bakal bikin cahaya buat orang lain jadi berkurang.", easyDetailEn: "Like streetlights or city parks. You can enjoy the light, and it won't make the light any dimmer for the next person."
   },
   {
     term: "Free Rider Problem", category: "Ekonomi",
     shortId: "Masalah orang yang menikmati manfaat tanpa membayar.", shortEn: "Burden on a shared resource by individuals who aren't paying.",
     detailId: "Masalah Penumpang Gelap (Free Rider Problem) adalah situasi inefisiensi pasar di mana individu menikmati manfaat dari barang publik atau sumber daya kolektif tanpa berkontribusi pada biayanya.",
-    detailEn: "The free rider problem is the burden on a shared resource that is created by its use or overuse by people who aren't paying their fair share for it."
+    detailEn: "The free rider problem is the burden on a shared resource that is created by its use or overuse by people who aren't paying their fair share for it.",
+    easyShortId: "Kerja kelompok, tapi ada yang cuma numpang nama.", easyShortEn: "Group work, but someone is just tagging along.",
+    easyDetailId: "Ada satu teman di kelompokmu yang nggak ngerjain tugas sama sekali, tapi dia tetap dapat nilai A karena kalian yang capek kerja. Di dunia ekonomi, dia itu parasit atau 'penumpang gelap'.", easyDetailEn: "One friend in your group does zero work but still gets an A because you did everything. In economics, they are called a 'free rider'."
   },
   {
     term: "Comparative Advantage", category: "Ekonomi",
     shortId: "Kemampuan memproduksi dengan biaya peluang lebih rendah.", shortEn: "Ability to produce goods at a lower opportunity cost.",
     detailId: "Keunggulan Komparatif adalah kemampuan ekonomi suatu negara untuk memproduksi barang atau jasa pada tingkat biaya peluang (opportunity cost) yang lebih rendah dibandingkan negara lain.",
-    detailEn: "Comparative advantage is an economy's ability to produce a particular good or service at a lower opportunity cost than its trading partners."
+    detailEn: "Comparative advantage is an economy's ability to produce a particular good or service at a lower opportunity cost than its trading partners.",
+    easyShortId: "Bagi tugas aja sesuai siapa yang paling jago di bidang itu.", easyShortEn: "Dividing tasks based on who is the most talented at it.",
+    easyDetailId: "Kamu jago banget matematika dan lumayan bisa nggambar. Temanmu cuma bisa nggambar sedikit. Mending kamu fokus kerjain PR matematika, dan biarin temanmu yang nggambar biar kerjaan kalian berdua cepat selesai.", easyDetailEn: "You are great at math and okay at drawing. Your friend is just okay at drawing. You should just do the math and let your friend draw so everything finishes faster."
   },
   {
     term: "Absolute Advantage", category: "Ekonomi",
     shortId: "Kemampuan memproduksi lebih banyak dengan sumber daya sama.", shortEn: "Ability to produce more with the same resources.",
     detailId: "Keunggulan Mutlak merujuk pada kemampuan suatu pihak (individu, perusahaan, atau negara) untuk memproduksi kuantitas barang yang lebih besar dengan jumlah input yang sama dibandingkan pihak lain.",
-    detailEn: "Absolute advantage is the ability of an individual, company, region, or country to produce a greater quantity of a good, product, or service with the same quantity of inputs per unit of time."
+    detailEn: "Absolute advantage is the ability of an individual, company, region, or country to produce a greater quantity of a good, product, or service with the same quantity of inputs per unit of time.",
+    easyShortId: "Kamu bisa ngelakuin semuanya jauh lebih cepat dan banyak.", easyShortEn: "You can do everything much faster and better.",
+    easyDetailId: "Dalam waktu 1 jam, kamu bisa melipat 10 pesawat kertas rapi, sedangkan temanmu cuma bisa bikin 2. Kamu jelas menang telak di semua sisi. Itu namanya keunggulan mutlak.", easyDetailEn: "In 1 hour, you can fold 10 paper planes while your friend only folds 2. You win in every way. That is an absolute advantage."
   },
   {
     term: "Production Possibility Frontier (PPF)", category: "Ekonomi",
     shortId: "Kurva batas kemungkinan produksi dua komoditas.", shortEn: "Curve showing maximum possible output of two commodities.",
     detailId: "Batas Kemungkinan Produksi (PPF) adalah kurva grafis yang menunjukkan semua kemungkinan kombinasi produksi dua barang atau jasa yang dapat diproduksi secara efisien menggunakan sumber daya yang ada.",
-    detailEn: "The production possibility frontier is a curve illustrating the varying amounts of two products that can be produced when both depend on the same finite resources."
+    detailEn: "The production possibility frontier is a curve illustrating the varying amounts of two products that can be produced when both depend on the same finite resources.",
+    easyShortId: "Milih batas maksimal mau bikin mainan A atau B.", easyShortEn: "Choosing the max limit to build toy A or B.",
+    easyDetailId: "Kamu punya balok lego terbatas. Kamu bisa bikin 2 mobil ATAU 1 robot besar. Kamu nggak akan pernah bisa bikin dua-duanya sekaligus pakai balok yang sama.", easyDetailEn: "You have limited Lego blocks. You can build 2 cars OR 1 big robot. You can never build both at the same time with those same blocks."
   },
   {
     term: "Gini Coefficient", category: "Ekonomi",
     shortId: "Indikator tingkat ketimpangan distribusi pendapatan.", shortEn: "Measure of income inequality within a nation.",
     detailId: "Rasio Gini adalah ukuran statistik yang merepresentasikan ketimpangan pendapatan atau kekayaan dalam suatu negara atau kelompok sosial. Nilai 0 berarti kesetaraan sempurna, dan 1 ketimpangan sempurna.",
-    detailEn: "The Gini index or Gini coefficient is a statistical measure of economic inequality in a population. It measures the dispersion of income or wealth."
+    detailEn: "The Gini index or Gini coefficient is a statistical measure of economic inequality in a population. It measures the dispersion of income or wealth.",
+    easyShortId: "Pengukur seberapa adil pembagian uang jajan di sebuah kelas.", easyShortEn: "Measuring how fair pocket money is distributed.",
+    easyDetailId: "Kalau nilainya 0, berarti semua anak di kelas uang jajannya sama persis (Adil banget). Kalau angkanya 1, berarti ada satu anak doang yang menguasai semua uang jajan di kelas, dan sisanya kelaparan.", easyDetailEn: "If the score is 0, every kid gets the exact same pocket money. If it's 1, one kid takes all the money and the rest get zero."
   },
   {
     term: "Stagflation", category: "Ekonomi",
     shortId: "Kondisi inflasi tinggi yang disertai stagnasi ekonomi.", shortEn: "High inflation combined with economic stagnation.",
     detailId: "Stagflasi adalah periode ekonomi yang ditandai dengan inflasi yang tinggi (kenaikan harga) yang terjadi bersamaan dengan pertumbuhan ekonomi yang lambat dan tingkat pengangguran yang tinggi.",
-    detailEn: "Stagflation is an economic cycle characterized by slow growth and a high unemployment rate accompanied by inflation."
+    detailEn: "Stagflation is an economic cycle characterized by slow growth and a high unemployment rate accompanied by inflation.",
+    easyShortId: "Udah harga barangnya makin mahal, cari kerjaan susah lagi.", easyShortEn: "Prices are rising, yet finding a job is super hard.",
+    easyDetailId: "Kondisi paling ngenes. Harga mie instan dan bensin di pasar naik terus tiap hari, tapi orang-orang pada dipecat dari pekerjaannya dan pabrik pada tutup.", easyDetailEn: "The saddest situation. The price of food and gas keeps going up, but people are getting fired and factories are closing down."
   },
   {
     term: "Aggregate Demand", category: "Ekonomi",
     shortId: "Total permintaan untuk seluruh barang & jasa dalam perekonomian.", shortEn: "Total demand for all finished goods and services.",
     detailId: "Permintaan Agregat adalah jumlah total permintaan ekonomi untuk semua barang jadi dan jasa pada tingkat harga tertentu dan dalam jangka waktu tertentu.",
-    detailEn: "Aggregate demand is an economic measurement of the total amount of demand for all finished goods and services produced in an economy."
+    detailEn: "Aggregate demand is an economic measurement of the total amount of demand for all finished goods and services produced in an economy.",
+    easyShortId: "Total seluruh daftar belanjaan satu negara ditumpuk jadi satu.", easyShortEn: "Everyone's shopping list piled up into one big pile.",
+    easyDetailId: "Bayangkan kamu menggabungkan daftar belanja ibumu, temanmu, sekolahmu, dan seluruh orang di Indonesia jadi satu struk kasir yang panjang banget. Itulah Agregat Demand.", easyDetailEn: "Imagine taking your mom's shopping list, your friend's, your school's, and everyone in the country, and gluing them into one giant receipt."
   },
 
   // --- 2. PASAR MODAL, INVESTASI & TRADING ---
