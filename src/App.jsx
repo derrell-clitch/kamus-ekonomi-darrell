@@ -1,5 +1,9 @@
 import React, { useState, useEffect, useMemo } from 'react';
-import { Search, BookOpen, X, Quote, TrendingUp, Landmark, LineChart, Briefcase, ChevronRight, GraduationCap } from 'lucide-react';
+import { 
+  Search, BookOpen, X, Quote, Landmark, LineChart, 
+  Briefcase, ChevronRight, GraduationCap, DollarSign, 
+  Activity, Globe, Bookmark, Award, Grid, Star, Info
+} from 'lucide-react';
 
 // --- DATA QUOTES EKONOM ---
 const quotes = [
@@ -13,58 +17,98 @@ const quotes = [
   { text: "There ain't no such thing as a free lunch.", author: "Milton Friedman" }
 ];
 
-// --- DATA KAMUS LITERASI KEUANGAN (Bilingual) ---
-// Total: 190 Definisi
+// --- DATA KAMUS LITERASI KEUANGAN (Dengan support Easy Mode) ---
 const dictionaryData = [
   // --- 1. EKONOMI DASAR (MIKRO & MAKRO) ---
   {
     term: "Scarcity", category: "Ekonomi",
     shortId: "Kondisi sumber daya terbatas untuk kebutuhan tak terbatas.", shortEn: "Condition of limited resources for unlimited wants.",
     detailId: "Kelangkaan (Scarcity) adalah masalah ekonomi mendasar karena manusia memiliki kebutuhan dan keinginan yang tidak terbatas, sedangkan sumber daya alam, tenaga kerja, dan modal yang tersedia sangat terbatas.",
-    detailEn: "Scarcity is the fundamental economic problem of having seemingly unlimited human wants in a world of limited resources. It states that society has insufficient productive resources to fulfill all human wants and needs."
+    detailEn: "Scarcity is the fundamental economic problem of having seemingly unlimited human wants in a world of limited resources.",
+    easyShortId: "Mainannya sedikit, tapi yang mau banyak banget.", easyShortEn: "Only a few toys, but everyone wants them.",
+    easyDetailId: "Bayangkan cuma ada 1 potongan kue cokelat, tapi 5 temanmu mau memakannya. Karena kuenya tidak cukup untuk semua orang, kita harus memilih siapa yang dapat. Itulah kelangkaan!", easyDetailEn: "Imagine there is only 1 slice of chocolate cake, but 5 kids want it. Because there isn't enough for everyone, we have to choose. That is scarcity!"
   },
   {
     term: "Opportunity Cost", category: "Ekonomi",
     shortId: "Biaya peluang dari alternatif terbaik yang dikorbankan.", shortEn: "The value of the next best alternative forgone.",
     detailId: "Biaya Peluang (Opportunity Cost) adalah nilai dari alternatif terbaik yang harus dikorbankan ketika seseorang membuat sebuah pilihan. Ini adalah konsep krusial dalam pengambilan keputusan ekonomi.",
-    detailEn: "Opportunity cost is the potential benefit that is lost when you choose one alternative over another. It's a key concept in economics representing the true cost of any decision."
+    detailEn: "Opportunity cost is the potential benefit that is lost when you choose one alternative over another.",
+    easyShortId: "Kalau pilih beli es krim, gak bisa beli cokelat.", easyShortEn: "If you buy ice cream, you can't buy chocolate.",
+    easyDetailId: "Bayangkan kamu cuma punya uang untuk beli satu jajan. Kalau kamu pilih es krim, kamu harus merelakan cokelat kesukaanmu. Cokelat yang tidak jadi kamu beli itulah 'biaya peluang'-nya.", easyDetailEn: "Imagine you only have money for one treat. If you pick ice cream, you have to let go of the chocolate. The chocolate you didn't buy is your 'opportunity cost'."
   },
   {
     term: "Ceteris Paribus", category: "Ekonomi",
     shortId: "Asumsi bahwa semua variabel lain tetap konstan.", shortEn: "Assumption that all other variables remain constant.",
     detailId: "Ceteris Paribus adalah frasa Latin yang berarti 'hal-hal lain dianggap tetap'. Dalam ilmu ekonomi, ini digunakan untuk menyederhanakan analisis dengan mengasumsikan bahwa hanya satu variabel yang berubah sementara yang lain tetap.",
-    detailEn: "A Latin phrase meaning 'all other things being equal'. In economics, it acts as a shorthand indication of the effect of one economic variable on another, keeping all other variables constant."
+    detailEn: "A Latin phrase meaning 'all other things being equal'. In economics, it acts as a shorthand indication of the effect of one economic variable on another.",
+    easyShortId: "Anggap saja semuanya tidak ada yang berubah.", easyShortEn: "Let's pretend nothing else changes.",
+    easyDetailId: "Ini seperti bilang: 'Kalau aku makan permen tiap hari, gigiku pasti bolong... TAPI dengan syarat aku malas sikat gigi dan hal lainnya tetap sama.'", easyDetailEn: "It's like saying: 'If I eat candy every day, I will get cavities... BUT only if I keep not brushing my teeth and everything else stays the exact same.'"
   },
   {
     term: "Law of Demand", category: "Ekonomi",
     shortId: "Hukum Permintaan: harga naik, kuantitas diminta turun.", shortEn: "As price increases, quantity demanded decreases.",
     detailId: "Hukum Permintaan menyatakan bahwa, ceteris paribus, semakin tinggi harga suatu barang, semakin sedikit jumlah barang tersebut yang akan diminta oleh konsumen.",
-    detailEn: "The law of demand states that, conditional on all else being equal, as the price of a good increases, quantity demanded decreases."
+    detailEn: "The law of demand states that, conditional on all else being equal, as the price of a good increases, quantity demanded decreases.",
+    easyShortId: "Makin mahal harganya, makin malas orang belinya.", easyShortEn: "The more expensive it is, the less people buy it.",
+    easyDetailId: "Bayangkan harga permen tiba-tiba jadi Rp100.000 satunya! Pasti kamu dan teman-temanmu jadi tidak mau beli permen lagi kan? Begitulah hukum permintaan bekerja.", easyDetailEn: "Imagine a single piece of candy suddenly costs 100 dollars! You and your friends definitely wouldn't buy it anymore, right?"
   },
   {
     term: "Law of Supply", category: "Ekonomi",
     shortId: "Hukum Penawaran: harga naik, kuantitas ditawarkan naik.", shortEn: "As price increases, quantity supplied increases.",
     detailId: "Hukum Penawaran menyatakan bahwa terdapat hubungan positif antara harga dan kuantitas yang ditawarkan. Produsen bersedia menawarkan lebih banyak barang pada harga yang lebih tinggi.",
-    detailEn: "The law of supply is the microeconomic law that states that, all other factors being equal, as the price of a good or service increases, the quantity of goods or services that suppliers offer will increase."
+    detailEn: "The law of supply states that as the price of a good increases, the quantity of goods that suppliers offer will increase.",
+    easyShortId: "Makin mahal harganya, penjual makin semangat jualan.", easyShortEn: "The higher the price, the more sellers want to sell.",
+    easyDetailId: "Bayangkan kamu penjual jus jeruk. Kalau orang-orang mau bayar mahal banget untuk jusmu, kamu pasti bakal semangat bikin jus yang banyaaaak sekali untuk dijual!", easyDetailEn: "Imagine you sell lemonade. If people are willing to pay a lot of money for your lemonade, you'll be super excited to make a looot of it!"
   },
   {
     term: "Marginal Utility", category: "Ekonomi",
     shortId: "Tambahan kepuasan dari konsumsi satu unit tambahan.", shortEn: "Additional satisfaction from consuming one more unit.",
     detailId: "Utilitas Marginal adalah kepuasan atau manfaat tambahan yang diperoleh konsumen dengan mengonsumsi satu unit tambahan dari suatu barang atau jasa.",
-    detailEn: "Marginal utility is the added satisfaction a consumer gets from having one more unit of a good or service."
+    detailEn: "Marginal utility is the added satisfaction a consumer gets from having one more unit of a good or service.",
+    easyShortId: "Rasa senang tambahan pas dapat mainan satu lagi.", easyShortEn: "The extra happiness from getting one more toy.",
+    easyDetailId: "Marginal Utility adalah seberapa senang perasaanmu saat memakan potongan pizza KEDUA, setelah kamu memakan potongan yang pertama.", easyDetailEn: "Marginal Utility is exactly how happy you feel when you eat your SECOND slice of pizza, right after finishing the first one."
   },
   {
     term: "Law of Diminishing Marginal Utility", category: "Ekonomi",
     shortId: "Tambahan kepuasan yang semakin menurun.", shortEn: "Decreasing added satisfaction from extra consumption.",
-    detailId: "Hukum Utilitas Marginal yang Semakin Menurun (Hukum Gossen I) menyatakan bahwa semakin banyak unit barang yang dikonsumsi, tambahan kepuasan (utilitas marginal) dari unit berikutnya akan semakin menurun.",
-    detailEn: "The law of diminishing marginal utility states that the marginal utility of a good or service declines as its available supply increases."
+    detailId: "Hukum Utilitas Marginal yang Semakin Menurun menyatakan bahwa semakin banyak unit barang yang dikonsumsi, tambahan kepuasan dari unit berikutnya akan semakin menurun.",
+    detailEn: "The law of diminishing marginal utility states that the marginal utility of a good declines as its available supply increases.",
+    easyShortId: "Makin banyak makan permen, lama-lama rasanya bosan.", easyShortEn: "The more candy you eat, the less yummy it feels.",
+    easyDetailId: "Potongan pizza pertama rasanya sangat enak! Tapi kalau kamu makan potongan ke-10, perutmu pasti mual dan rasanya tidak enak lagi. Kesenanganmu lama-lama menurun.", easyDetailEn: "The first slice of pizza is super yummy! But if you eat the 10th slice, your tummy hurts and it's not yummy anymore."
   },
   {
     term: "Indifference Curve", category: "Ekonomi",
     shortId: "Kurva yang menunjukkan kombinasi barang dengan kepuasan sama.", shortEn: "Curve showing combinations of goods giving equal satisfaction.",
     detailId: "Kurva Indiferensi adalah kurva yang menghubungkan titik-titik kombinasi dari dua barang atau jasa yang memberikan tingkat kepuasan (utilitas) yang sama kepada konsumen.",
-    detailEn: "An indifference curve shows a combination of two goods that give a consumer equal satisfaction and utility, thereby making the consumer indifferent."
+    detailEn: "An indifference curve shows a combination of two goods that give a consumer equal satisfaction and utility.",
+    easyShortId: "Sama-sama bikin senang, terserah mau pilih yang mana.", easyShortEn: "Both make you equally happy, you don't mind which.",
+    easyDetailId: "Bayangkan kamu disuruh pilih: 2 permen dan 3 biskuit, ATAU 3 permen dan 2 biskuit. Kalau kamu merasa dua-duanya sama enaknya dan tidak peduli pilih yang mana, itu namanya kurva indiferensi.", easyDetailEn: "Imagine picking between: 2 candies & 3 cookies OR 3 candies & 2 cookies. If both make you exactly as happy, that's an indifference curve."
   },
+  {
+    term: "Gross Domestic Product (GDP)", category: "Ekonomi",
+    shortId: "Total nilai barang & jasa yang diproduksi di suatu negara.", shortEn: "Total value of goods & services produced within a country.",
+    detailId: "Produk Domestik Bruto (PDB) adalah nilai pasar dari semua barang dan jasa akhir yang diproduksi di dalam batas wilayah suatu negara selama periode tertentu.",
+    detailEn: "Gross Domestic Product is the total monetary or market value of all the finished goods and services produced within a country's borders.",
+    easyShortId: "Jumlah seluruh mainan yang berhasil dibuat satu negara.", easyShortEn: "The total amount of toys made in one country.",
+    easyDetailId: "Bayangkan negara kita itu seperti kotak pasir besar. GDP adalah nilai semua kastil pasir, mainan, dan kue lumpur yang berhasil dibuat oleh semua anak di dalam kotak pasir itu.", easyDetailEn: "Imagine our country is a big sandbox. GDP is the value of all the sandcastles and toys made by all the kids inside that sandbox."
+  },
+  {
+    term: "Monopoly", category: "Ekonomi",
+    shortId: "Struktur pasar dengan hanya satu penjual.", shortEn: "Market structure characterized by a single seller.",
+    detailId: "Monopoli adalah struktur pasar di mana satu penjual atau produsen mendominasi seluruh pasar untuk suatu barang atau jasa yang tidak memiliki substitusi terdekat.",
+    detailEn: "A monopoly is a market structure where a single seller or producer assumes a dominant position in an industry or a sector.",
+    easyShortId: "Cuma ada satu anak yang punya bola di taman.", easyShortEn: "Only one kid has the ball in the playground.",
+    easyDetailId: "Bayangkan di seluruh taman bermain cuma ada satu penjual permen. Kalau kamu mau permen, kamu cuma bisa beli dari dia, dan dia bisa mematok harga semahal yang dia mau!", easyDetailEn: "Imagine in the whole park, there is only one candy seller. If you want candy, you have to buy from him, and he can make the price as high as he wants!"
+  },
+  {
+    term: "Oligopoly", category: "Ekonomi",
+    shortId: "Struktur pasar yang didominasi oleh segelintir perusahaan.", shortEn: "Market structure dominated by a small number of firms.",
+    detailId: "Oligopoli adalah struktur pasar di mana sejumlah kecil perusahaan besar mendominasi pasar, sering kali menyebabkan ketergantungan strategis antar perusahaan.",
+    detailEn: "An oligopoly is a market structure in which a market or industry is dominated by a small number of large sellers or producers.",
+    easyShortId: "Mainannya cuma dijual sama beberapa geng anak besar.", easyShortEn: "Toys are only sold by a few big kids.",
+    easyDetailId: "Bayangkan di sekolah cuma ada 3 anak yang jualan kartu Pokémon. Karena mereka cuma bertiga, mereka diam-diam bisa janjian bareng buat mahalin harga kartunya.", easyDetailEn: "Imagine at school only 3 kids sell Pokémon cards. Because there's only a few of them, they can secretly agree to make the cards super expensive together."
+  },
+  // Item di bawah ini nggak dikasih teks easy biar otomatis pakai fungsi fallback (pake teks pro)
   {
     term: "Price Ceiling", category: "Ekonomi",
     shortId: "Batas harga tertinggi yang ditetapkan pemerintah.", shortEn: "Maximum legal price set by the government.",
@@ -75,13 +119,7 @@ const dictionaryData = [
     term: "Price Floor", category: "Ekonomi",
     shortId: "Batas harga terendah yang ditetapkan pemerintah.", shortEn: "Minimum legal price set by the government.",
     detailId: "Price Floor atau Harga Dasar Minimum adalah batas bawah yang ditetapkan pemerintah terhadap harga suatu barang atau jasa, biasanya untuk melindungi produsen (seperti UMP untuk tenaga kerja).",
-    detailEn: "A price floor is a government- or group-imposed price control or limit on how low a price can be charged for a product, good, commodity, or service."
-  },
-  {
-    term: "Gross Domestic Product (GDP)", category: "Ekonomi",
-    shortId: "Total nilai barang & jasa yang diproduksi di suatu negara.", shortEn: "Total value of goods & services produced within a country.",
-    detailId: "Produk Domestik Bruto (PDB) adalah nilai pasar dari semua barang dan jasa akhir yang diproduksi di dalam batas wilayah suatu negara selama periode tertentu.",
-    detailEn: "Gross Domestic Product is the total monetary or market value of all the finished goods and services produced within a country's borders in a specific time period."
+    detailEn: "A price floor is a government- or group-imposed price control or limit on how low a price can be charged for a product."
   },
   {
     term: "Gross National Product (GNP)", category: "Ekonomi",
@@ -96,18 +134,6 @@ const dictionaryData = [
     detailEn: "Price elasticity of demand is a measure used in economics to show the responsiveness, or elasticity, of the quantity demanded of a good or service to a change in its price."
   },
   {
-    term: "Monopoly", category: "Ekonomi",
-    shortId: "Struktur pasar dengan hanya satu penjual.", shortEn: "Market structure characterized by a single seller.",
-    detailId: "Monopoli adalah struktur pasar di mana satu penjual atau produsen mendominasi seluruh pasar untuk suatu barang atau jasa yang tidak memiliki substitusi terdekat.",
-    detailEn: "A monopoly is a market structure where a single seller or producer assumes a dominant position in an industry or a sector."
-  },
-  {
-    term: "Oligopoly", category: "Ekonomi",
-    shortId: "Struktur pasar yang didominasi oleh segelintir perusahaan.", shortEn: "Market structure dominated by a small number of firms.",
-    detailId: "Oligopoli adalah struktur pasar di mana sejumlah kecil perusahaan besar mendominasi pasar, sering kali menyebabkan ketergantungan strategis antar perusahaan.",
-    detailEn: "An oligopoly is a market structure in which a market or industry is dominated by a small number of large sellers or producers."
-  },
-  {
     term: "Perfect Competition", category: "Ekonomi",
     shortId: "Pasar persaingan sempurna dengan banyak pembeli & penjual.", shortEn: "Market with many buyers and sellers of identical products.",
     detailId: "Persaingan Sempurna adalah struktur pasar teoretis di mana terdapat banyak pembeli dan penjual, produk bersifat homogen, dan tidak ada satu entitas pun yang dapat memengaruhi harga.",
@@ -117,7 +143,7 @@ const dictionaryData = [
     term: "Monopolistic Competition", category: "Ekonomi",
     shortId: "Banyak penjual dengan produk yang dapat dibedakan.", shortEn: "Many sellers offering differentiated products.",
     detailId: "Persaingan Monopolistik adalah jenis persaingan di mana banyak produsen menjual produk yang berbeda satu sama lain (diferensiasi produk) sehingga mereka bukan substitusi sempurna.",
-    detailEn: "Monopolistic competition is a type of imperfect competition such that many producers sell products that are differentiated from one another (e.g. by branding or quality)."
+    detailEn: "Monopolistic competition is a type of imperfect competition such that many producers sell products that are differentiated from one another."
   },
   {
     term: "Deadweight Loss", category: "Ekonomi",
@@ -141,7 +167,7 @@ const dictionaryData = [
     term: "Free Rider Problem", category: "Ekonomi",
     shortId: "Masalah orang yang menikmati manfaat tanpa membayar.", shortEn: "Burden on a shared resource by individuals who aren't paying.",
     detailId: "Masalah Penumpang Gelap (Free Rider Problem) adalah situasi inefisiensi pasar di mana individu menikmati manfaat dari barang publik atau sumber daya kolektif tanpa berkontribusi pada biayanya.",
-    detailEn: "The free rider problem is the burden on a shared resource that is created by its use or overuse by people who aren't paying their fair share for it or aren't paying anything at all."
+    detailEn: "The free rider problem is the burden on a shared resource that is created by its use or overuse by people who aren't paying their fair share for it."
   },
   {
     term: "Comparative Advantage", category: "Ekonomi",
@@ -185,13 +211,17 @@ const dictionaryData = [
     term: "Stock (Saham)", category: "Pasar Modal",
     shortId: "Bukti kepemilikan sebagian dari suatu perusahaan.", shortEn: "A fraction of ownership in a corporation.",
     detailId: "Saham adalah instrumen pasar keuangan yang berupa surat berharga tanda penyertaan modal seseorang atau pihak dalam suatu perusahaan.",
-    detailEn: "A stock is a security that represents the ownership of a fraction of a corporation."
+    detailEn: "A stock is a security that represents the ownership of a fraction of a corporation.",
+    easyShortId: "Punya potongan kecil dari toko mainan.", easyShortEn: "Owning a tiny piece of a toy store.",
+    easyDetailId: "Bayangkan sebuah toko permen besar dipotong jadi 1.000 keping puzzle. Kalau kamu beli 1 kepingnya, selamat! Kamu sekarang jadi salah satu bos toko permen itu.", easyDetailEn: "Imagine a giant candy store is cut into 1,000 puzzle pieces. If you buy 1 piece, congratulations! You are now one of the bosses of that candy store."
   },
   {
     term: "Bond (Obligasi)", category: "Pasar Modal",
     shortId: "Surat utang jangka menengah atau panjang.", shortEn: "A fixed-income instrument representing a loan.",
     detailId: "Obligasi adalah surat utang jangka menengah maupun jangka panjang yang dapat diperjualbelikan dengan janji pembayaran bunga berkala.",
-    detailEn: "A bond is a fixed-income instrument that represents a loan made by an investor to a borrower."
+    detailEn: "A bond is a fixed-income instrument that represents a loan made by an investor to a borrower.",
+    easyShortId: "Surat janji temanmu untuk ngembaliin uang pinjaman.", easyShortEn: "A friend's promise note to return borrowed money.",
+    easyDetailId: "Bayangkan taman hiburan butuh uang buat bikin Rollercoaster, lalu dia pinjam celenganmu. Dia ngasih surat janji: 'Nanti uangmu kubalikin, plus aku kasih es krim gratis tiap bulan'.", easyDetailEn: "Imagine a theme park borrows your piggy bank to build a Rollercoaster. They give you a note: 'I'll return your money, plus free ice cream every month'."
   },
   {
     term: "Mutual Fund (Reksadana)", category: "Pasar Modal",
@@ -403,7 +433,9 @@ const dictionaryData = [
     term: "Forex Market", category: "Currency",
     shortId: "Pasar global terdesentralisasi untuk memperdagangkan mata uang asing.", shortEn: "Global market for trading currencies.",
     detailId: "Foreign Exchange (Forex) Market adalah pasar terbesar di dunia yang memfasilitasi pertukaran dan perdagangan mata uang antarnegara 24 jam sehari (Senin-Jumat).",
-    detailEn: "The foreign exchange market is a global decentralized or over-the-counter market for the trading of currencies."
+    detailEn: "The foreign exchange market is a global decentralized or over-the-counter market for the trading of currencies.",
+    easyShortId: "Pasar tukar-menukar uang dari seluruh dunia.", easyShortEn: "A worldwide market to swap different money.",
+    easyDetailId: "Tempat pertukaran mata uang. Kalau kamu mau pergi ke Amerika, kamu harus ke pasar ini untuk menukar Rupiah milikmu jadi Dolar Amerika.", easyDetailEn: "A money swap place. If you want to go to America, you use this market to swap your local money into US Dollars."
   },
   {
     term: "Exchange Rate (Kurs)", category: "Currency",
@@ -477,7 +509,9 @@ const dictionaryData = [
     term: "Monetary Policy", category: "Kebijakan Moneter",
     shortId: "Kebijakan bank sentral mengatur suplai uang dan suku bunga.", shortEn: "Central bank policy managing money supply and interest rates.",
     detailId: "Kebijakan Moneter adalah keputusan strategis bank sentral untuk mengendalikan inflasi dan stabilitas ekonomi dengan mengatur jumlah uang beredar dan tingkat suku bunga diskonto.",
-    detailEn: "Monetary policy is the macroeconomic policy laid down by the central bank. It involves management of money supply and interest rate."
+    detailEn: "Monetary policy is the macroeconomic policy laid down by the central bank. It involves management of money supply and interest rate.",
+    easyShortId: "Aturan bos Bank Sentral ngontrol banjirnya uang.", easyShortEn: "The Central Bank boss's rules to control flooding money.",
+    easyDetailId: "Bayangkan Bank Indonesia punya keran air besar. Kalau air (uang) yang keluar terlalu banyak, harga barang mahal. Jadi Bank sentral mengecilkan putaran kerannya.", easyDetailEn: "Imagine the Central Bank has a big water tap. If too much water (money) flows out, prices get too high. So they turn the tap down."
   },
   {
     term: "Fiscal Policy", category: "Kebijakan Fiskal",
@@ -581,7 +615,9 @@ const dictionaryData = [
     term: "Premium (Premi)", category: "Asuransi",
     shortId: "Sejumlah uang yang dibayarkan peserta kepada asuransi.", shortEn: "Amount paid for an insurance policy.",
     detailId: "Premi adalah biaya reguler bulanan atau tahunan yang disepakati untuk disetorkan tertanggung ke rekening perusahaan asuransi sebagai syarat jaminan pengalihan risiko.",
-    detailEn: "An insurance premium is the amount of money an individual or business pays for an insurance policy."
+    detailEn: "An insurance premium is the amount of money an individual or business pays for an insurance policy.",
+    easyShortId: "Uang iuran buat beli perisai pelindung pelan-pelan.", easyShortEn: "Fee money to slowly buy a magic shield.",
+    easyDetailId: "Setiap bulan kamu bayar Rp50.000 ke perusahaan Asuransi. Kayak bayar uang kas kelas. Gunanya biar kalau besok kamu masuk rumah sakit, mereka yang bayarin tagihan jutaan rupiahnya.", easyDetailEn: "Every month you pay $5 to the Insurance company. Like a club fee. The point is if you go to the hospital tomorrow, they pay the giant bill for you."
   },
   {
     term: "Utmost Good Faith", category: "Hukum Asuransi",
@@ -679,7 +715,9 @@ const dictionaryData = [
     term: "Assets (Aset)", category: "Akuntansi",
     shortId: "Kekayaan ekonomi yang dimiliki perusahaan.", shortEn: "Resources owned by a business.",
     detailId: "Aset adalah sumber daya ekonomi (kas, alat, gedung, hak cipta) yang dikendalikan entitas untuk memberikan manfaat komersial masa depan.",
-    detailEn: "An asset is a resource with economic value that an individual, corporation, or country owns or controls."
+    detailEn: "An asset is a resource with economic value that an individual, corporation, or country owns or controls.",
+    easyShortId: "Semua harta mainan keren yang beneran kamu miliki.", easyShortEn: "All the cool toys and stuff you actually own.",
+    easyDetailId: "Aset itu semua harta berharga perusahaanmu. Termasuk isi uang di mesin kasir, oven panggang pizzanya, sampai mobil truk pengantarnya.", easyDetailEn: "Assets are all the valuable stuff your company has. Including the money in the cash register, the pizza oven, and the delivery truck."
   },
   {
     term: "Liabilities (Liabilitas/Utang)", category: "Akuntansi",
@@ -783,7 +821,9 @@ const dictionaryData = [
     term: "Central Bank (Bank Sentral)", category: "Perbankan",
     shortId: "Otoritas tertinggi moneter penjaga stabilitas mata uang negara.", shortEn: "Institution managing a state's currency and money supply.",
     detailId: "Bank Sentral (seperti Bank Indonesia atau US Federal Reserve) tidak melayani publik. Fungsinya merumuskan regulasi bank dan kebijakan stabilisasi moneter suatu negara.",
-    detailEn: "A central bank is a public institution that manages a state's currency, money supply, and interest rates."
+    detailEn: "A central bank is a public institution that manages a state's currency, money supply, and interest rates.",
+    easyShortId: "Raja Midas penguasa pabrik percetakan uang.", easyShortEn: "King Midas, boss of the money printing factory.",
+    easyDetailId: "Bank Indonesia itu bosnya semua bank. Kamu gak bisa nabung atau minta kredit ke sana. Tugasnya cuma mencetak uang baru dan menjaga ekonomi negara biar gak hancur krisis.", easyDetailEn: "Central Bank is the boss of all banks. You can't open an account there. Its job is only printing new money and keeping the country's economy from crashing."
   },
   {
     term: "Commercial Bank (Bank Umum)", category: "Perbankan",
@@ -947,13 +987,17 @@ const dictionaryData = [
     term: "Time Value of Money (TVM)", category: "Financial Literacy",
     shortId: "Prinsip: Sepuluh ribu hari ini lebih perkasa daya belinya dibanding 5 tahun nanti.", shortEn: "Concept that money today is worth more than the identical sum in the future.",
     detailId: "Nilai Waktu Uang meyakini fakta karena potensial kapasitas penambahan bunga. Uang tunai di saku hari ini mendatangkan modal bunga komersil kalau ditaruh ke bank hari ini juga.",
-    detailEn: "The time value of money (TVM) is the concept that a sum of money is worth more now than the same sum will be at a future date due to its earnings potential in the interim."
+    detailEn: "The time value of money (TVM) is the concept that a sum of money is worth more now than the same sum will be at a future date due to its earnings potential in the interim.",
+    easyShortId: "Seratus ribu hari ini jauh lebih sakti daripada 5 tahun lagi.", easyShortEn: "A hundred bucks today is way more powerful than in 5 years.",
+    easyDetailId: "Kalau disuruh milih dikasih Uang 1 Juta sekarang atau 5 tahun lagi, pilih Sekarang! Karena uang hari ini bisa diputer langsung buat bisnis jualan dan beranak pinak berbunga banyak dalam 5 tahun.", easyDetailEn: "If asked to get $100 now or in 5 years, pick Now! Because today's money can be instantly used for business and breed lots of interest over 5 years."
   },
   {
     term: "Amortization Schedule", category: "Financial Literacy",
     shortId: "Tabel rinci pembayaran perbulan berapa ke pokok utang, berapa ke beban margin bank.", shortEn: "Complete table of periodic loan payments.",
     detailId: "Jadwal Amortisasi merinci kalkulasi hipotek. Pada tahun pertama porsi bunga dibayar jauh lebih tinggi sementara sedikit mengurangi utang pokok, grafiknya menyilang nanti di akhir pelunasan.",
-    detailEn: "An amortization schedule is a complete table of periodic loan payments, showing the amount of principal and the amount of interest that comprise each payment."
+    detailEn: "An amortization schedule is a complete table of periodic loan payments, showing the amount of principal and the amount of interest that comprise each payment.",
+    easyShortId: "Daftar ceklis cicilan hutang sampai lunas.", easyShortEn: "Checklist of debt installments until it's paid off.",
+    easyDetailId: "Tabel daftar bayaran cicilan rumahmu. Bulan pertama bayar berapa, bulan kedua berapa, sampai ketahuan kapan hutangmu benar-benar lunas dan rumahnya jadi milikmu seutuhnya.", easyDetailEn: "A list of your house payments. How much you pay the first month, second month, until you know exactly when your debt is gone and the house is fully yours."
   },
   {
     term: "Financial Independence", category: "Financial Literacy",
@@ -1111,43 +1155,83 @@ const dictionaryData = [
   }
 ];
 
-// --- MAIN APP COMPONENT ---
+// Helper Fungsi buat nentuin teks yang muncul (Auto-Fallback kalau Easy-nya belum ada)
+const getText = (item, type, language, mode) => {
+  const langSuffix = language === 'id' ? 'Id' : 'En'; // Jadi 'Id' atau 'En'
+  const typeCapitalized = type.charAt(0).toUpperCase() + type.slice(1); // 'Short' atau 'Detail'
+  
+  // Kalau lagi mode easy, coba cari properti easy (misal: easyShortId)
+  if (mode === 'easy') {
+    const easyKey = `easy${typeCapitalized}${langSuffix}`;
+    if (item[easyKey]) return item[easyKey];
+  }
+  
+  // Kalau mode general atau data easy-nya belum ada (fallback)
+  const generalKey = `${type}${langSuffix}`; // misal: shortId atau detailEn
+  return item[generalKey] || "";
+}
+
 export default function App() {
   const [searchTerm, setSearchTerm] = useState("");
   const [selectedCategory, setSelectedCategory] = useState("Semua");
-  const [selectedTerm, setSelectedTerm] = useState({});
+  const [language, setLanguage] = useState("id"); // 'id' atau 'en'
+  const [learningMode, setLearningMode] = useState("general"); // 'general' atau 'easy'
+  const [selectedTerm, setSelectedTerm] = useState(null);
   const [quoteIndex, setQuoteIndex] = useState(0);
 
-  // Extract unique categories
   const categories = ["Semua", ...new Set(dictionaryData.map(item => item.category))];
 
-  // Logic to rotate quotes periodically
   useEffect(() => {
     const interval = setInterval(() => {
       setQuoteIndex((prev) => (prev + 1) % quotes.length);
-    }, 4000);
+    }, 6000); 
     return () => clearInterval(interval);
   }, []);
 
-  // Filter functionality
+  // Filter logika
   const filteredData = useMemo(() => {
     return dictionaryData.filter(item => {
       const matchCategory = selectedCategory === "Semua" || item.category === selectedCategory;
+      const targetShort = getText(item, 'short', language, learningMode);
       const matchSearch = item.term.toLowerCase().includes(searchTerm.toLowerCase()) || 
-                          item.shortId.toLowerCase().includes(searchTerm.toLowerCase()) ||
-                          item.shortEn.toLowerCase().includes(searchTerm.toLowerCase());
+                          targetShort.toLowerCase().includes(searchTerm.toLowerCase());
       return matchCategory && matchSearch;
     });
-  }, [searchTerm, selectedCategory]);
+  }, [searchTerm, selectedCategory, language, learningMode]);
 
-  // Handler for closing modal
-  const closeModal = () => setSelectedTerm({
-  term: "",
-  definition: ""
-});
+  const getCategoryIcon = (cat) => {
+    switch(cat) {
+      case 'Ekonomi': return <BookOpen className="w-5 h-5" />;
+      case 'Pasar Modal': return <Activity className="w-5 h-5" />;
+      case 'Investasi': return <Briefcase className="w-5 h-5" />;
+      case 'Currency': return <Globe className="w-5 h-5" />;
+      case 'Kebijakan Moneter': return <DollarSign className="w-5 h-5" />;
+      case 'Kebijakan Fiskal': return <Landmark className="w-5 h-5" />;
+      case 'Asuransi': return <Bookmark className="w-5 h-5" />;
+      case 'Hukum Asuransi': return <Bookmark className="w-5 h-5" />;
+      case 'Akuntansi': return <Grid className="w-5 h-5" />;
+      case 'Perbankan': return <DollarSign className="w-5 h-5" />;
+      case 'Financial Literacy': return <Award className="w-5 h-5" />;
+      case 'Trading': return <LineChart className="w-5 h-5" />;
+      default: return <BookOpen className="w-5 h-5" />;
+    }
+  };
+
+  const closeModal = () => setSelectedTerm(null);
+
+  // Tentukan warna tema berdasarkan mode
+  const themeColor = learningMode === 'easy' ? 'amber' : 'indigo';
+  const themeStyles = {
+    bgLight: learningMode === 'easy' ? 'bg-amber-50' : 'bg-indigo-50',
+    textMain: learningMode === 'easy' ? 'text-amber-600' : 'text-indigo-600',
+    borderLight: learningMode === 'easy' ? 'border-amber-200' : 'border-indigo-100',
+    bgGradient: learningMode === 'easy' ? 'from-amber-50 to-orange-50' : 'from-indigo-50 to-blue-50',
+    modalGradient: learningMode === 'easy' ? 'from-amber-400 to-orange-500' : 'from-indigo-500 to-blue-500',
+    buttonBg: learningMode === 'easy' ? 'bg-amber-500 hover:bg-amber-600' : 'bg-indigo-600 hover:bg-indigo-700',
+  };
 
   return (
-    <div className="min-h-screen bg-slate-50 font-sans text-slate-800 selection:bg-blue-200">
+    <div className="min-h-screen bg-slate-50 font-sans text-slate-800">
       
       {/* TOP CREDIT BAR */}
       <div className="bg-slate-950 text-slate-400 text-xs py-2 px-4 flex flex-col sm:flex-row justify-center items-center gap-1 sm:gap-3 z-20 relative border-b border-slate-800">
@@ -1159,64 +1243,104 @@ export default function App() {
       </div>
 
       {/* HEADER SECTION */}
-      <header className="bg-gradient-to-r from-slate-900 to-blue-900 text-white shadow-xl">
-        <div className="container mx-auto px-4 py-4 md:py-6 relative flex flex-col md:flex-row justify-between items-center gap-4">
+      <header className="bg-white border-b border-slate-200 shadow-sm sticky top-0 z-10">
+        <div className="container mx-auto px-4 py-4 md:py-5 flex flex-col md:flex-row justify-between items-center gap-4">
           
-          {/* Logo / Branding */}
           <div className="flex items-center gap-3">
-            <div className="bg-white p-2 rounded-xl shadow-inner">
-              <Landmark className="w-8 h-8 text-blue-900" strokeWidth={2.5}/>
+            <div className={`${themeStyles.bgLight} p-2.5 rounded-xl shadow-inner border ${themeStyles.borderLight}`}>
+              <Landmark className={`w-7 h-7 ${themeStyles.textMain}`} strokeWidth={2.5}/>
             </div>
             <div className="flex flex-col">
-              <span className="text-xl md:text-2xl font-bold tracking-tight text-blue-100 flex items-center gap-2">
-                Darrell Economics <GraduationCap className="w-5 h-5 text-yellow-400" />
+              <span className="text-xl md:text-2xl font-bold tracking-tight text-slate-900 flex items-center gap-2">
+                Darrell Economics <GraduationCap className={`w-5 h-5 ${themeStyles.textMain}`} />
               </span>
-              <span className="text-sm font-medium text-slate-300 uppercase tracking-widest">Education Financial Literacy</span>
+              <span className="text-xs font-bold text-slate-400 uppercase tracking-widest">Education Financial Literacy</span>
             </div>
           </div>
 
-          {/* Quotes Section */}
-          <div className="w-full md:w-1/2 lg:w-1/3 bg-white/10 backdrop-blur-sm p-4 rounded-2xl border border-white/20 transition-all">
-            <Quote className="text-yellow-400 w-5 h-5 mb-2 opacity-80" />
-            <p className="italic text-sm md:text-base leading-relaxed mb-2 text-slate-100 min-h-[40px] md:min-h-[48px] flex items-center">
-              "{quotes[quoteIndex].text}"
-            </p>
-            <p className="text-xs font-bold text-blue-200 text-right">— {quotes[quoteIndex].author}</p>
+          <div className="flex items-center gap-3">
+            {/* Language Toggle (ID/EN) */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+              <button
+                onClick={() => setLanguage('id')}
+                className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-all ${language === 'id' ? 'bg-white shadow text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+              >
+                ID
+              </button>
+              <button
+                onClick={() => setLanguage('en')}
+                className={`px-3 py-1.5 text-sm font-bold rounded-lg transition-all ${language === 'en' ? 'bg-white shadow text-slate-800' : 'text-slate-400 hover:text-slate-600'}`}
+              >
+                EN
+              </button>
+            </div>
+
+            {/* Mode Toggle (Pro/Easy) */}
+            <div className="flex items-center bg-slate-100 p-1 rounded-xl border border-slate-200">
+              <button
+                onClick={() => setLearningMode('general')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold rounded-lg transition-all ${learningMode === 'general' ? 'bg-white shadow text-indigo-600' : 'text-slate-400 hover:text-slate-600'}`}
+              >
+                <Briefcase className="w-4 h-4" />
+                <span className="hidden sm:block">Pro</span>
+              </button>
+              <button
+                onClick={() => setLearningMode('easy')}
+                className={`flex items-center gap-1.5 px-3 py-1.5 text-sm font-bold rounded-lg transition-all ${learningMode === 'easy' ? 'bg-gradient-to-r from-amber-400 to-orange-400 text-white shadow' : 'text-slate-400 hover:text-slate-600'}`}
+              >
+                <Star className="w-4 h-4" />
+                <span className="hidden sm:block">Easy</span>
+              </button>
+            </div>
           </div>
+
         </div>
       </header>
 
       {/* MAIN CONTENT */}
-      <main className="container mx-auto px-4 py-8 relative">
+      <main className="container mx-auto px-4 py-8 relative max-w-7xl">
         
+        {/* Quotes Section */}
+        <div className={`bg-gradient-to-r ${learningMode === 'easy' ? 'from-amber-900 to-orange-900 border-amber-800/50' : 'from-slate-900 to-indigo-900 border-indigo-800/50'} rounded-3xl p-6 md:p-8 mb-10 text-center relative overflow-hidden shadow-xl border`}>
+          <Quote className="absolute top-4 left-4 w-12 h-12 text-white/10 rotate-180" />
+          <div className="relative z-10 max-w-3xl mx-auto transition-opacity duration-500">
+            <p className="text-lg md:text-xl font-medium text-slate-100 leading-relaxed mb-4 italic">
+              "{quotes[quoteIndex].text}"
+            </p>
+            <p className={`${learningMode === 'easy' ? 'text-amber-300' : 'text-indigo-300'} font-bold tracking-widest uppercase text-xs`}>
+              — {quotes[quoteIndex].author}
+            </p>
+          </div>
+        </div>
+
         {/* Kontrol Pencarian & Filter */}
-        <div className="bg-white p-4 md:p-6 rounded-2xl shadow-sm border border-slate-200 mb-8 z-10 sticky top-2">
+        <div className="bg-white p-4 md:p-5 rounded-2xl shadow-sm border border-slate-200 mb-6 z-10 relative">
           <div className="flex flex-col md:flex-row gap-4 justify-between items-center">
             
             {/* Search Bar */}
-            <div className="relative w-full md:w-1/2 lg:w-1/3">
-              <div className="absolute inset-y-0 left-0 pl-3 flex items-center pointer-events-none">
+            <div className="relative w-full md:w-1/3">
+              <div className="absolute inset-y-0 left-0 pl-4 flex items-center pointer-events-none">
                 <Search className="h-5 w-5 text-slate-400" />
               </div>
               <input
                 type="text"
-                placeholder="Cari definisi atau istilah bahasa Inggris..."
+                placeholder={language === 'id' ? "Cari istilah atau definisi..." : "Search term or definition..."}
                 value={searchTerm}
                 onChange={(e) => setSearchTerm(e.target.value)}
-                className="w-full pl-10 pr-4 py-3 border border-slate-300 rounded-xl focus:ring-2 focus:ring-blue-500 focus:border-transparent outline-none transition-all shadow-sm text-sm"
+                className={`w-full pl-11 pr-4 py-3.5 bg-slate-50 border border-slate-200 rounded-xl focus:ring-2 focus:bg-white focus:border-transparent outline-none transition-all shadow-inner text-sm font-medium ${learningMode === 'easy' ? 'focus:ring-amber-400' : 'focus:ring-indigo-500'}`}
               />
             </div>
 
-            {/* Kategori Filters (Scrollable on Mobile) */}
+            {/* Kategori Filters */}
             <div className="w-full md:w-auto flex gap-2 overflow-x-auto pb-2 md:pb-0 hide-scrollbar snap-x">
               {categories.map(cat => (
                 <button
                   key={cat}
                   onClick={() => setSelectedCategory(cat)}
-                  className={`snap-start whitespace-nowrap px-4 py-2 rounded-full text-xs font-bold transition-all border ${
+                  className={`snap-start whitespace-nowrap px-4 py-2.5 rounded-full text-xs font-bold transition-all border ${
                     selectedCategory === cat 
-                      ? 'bg-blue-600 text-white border-blue-600 shadow-md transform scale-105' 
-                      : 'bg-slate-100 text-slate-600 border-slate-200 hover:bg-slate-200 hover:border-slate-300'
+                      ? `${learningMode === 'easy' ? 'bg-amber-500 border-amber-500' : 'bg-indigo-600 border-indigo-600'} text-white shadow-md transform scale-105` 
+                      : `bg-white text-slate-600 border-slate-200 hover:bg-slate-50 ${learningMode === 'easy' ? 'hover:border-amber-300 hover:text-amber-600' : 'hover:border-indigo-300 hover:text-indigo-600'}`
                   }`}
                 >
                   {cat}
@@ -1227,48 +1351,59 @@ export default function App() {
           </div>
         </div>
 
+        {/* NOTE ALERT (Hanya muncul di mode Easy) */}
+        {learningMode === 'easy' && (
+          <div className="bg-amber-50 border border-amber-200 rounded-xl p-4 mb-8 flex items-start gap-3 shadow-sm animate-in fade-in slide-in-from-top-4">
+            <Info className="w-5 h-5 text-amber-500 flex-shrink-0 mt-0.5" />
+            <p className="text-sm text-amber-800 leading-relaxed">
+              <strong className="font-bold">{language === 'id' ? 'Catatan:' : 'Note:'}</strong> {language === 'id' ? 'Belum semua istilah memiliki penjelasan versi "Easy". Istilah yang belum diperbarui akan otomatis menggunakan penjelasan dari versi "Pro" sementara waktu.' : 'Not all terms have an "Easy" explanation version yet. Terms that have not been updated will automatically use the explanation from the "Pro" version for the time being.'}
+            </p>
+          </div>
+        )}
+
         {/* LIST KARTU DEFINISI */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 md:gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-5">
           {filteredData.length > 0 ? (
             filteredData.map((item, idx) => (
               <div 
                 key={idx} 
                 onClick={() => setSelectedTerm(item)}
-                className="group bg-white rounded-2xl p-5 border border-slate-200 shadow-sm hover:shadow-xl hover:-translate-y-1 hover:border-blue-300 transition-all duration-300 cursor-pointer flex flex-col h-full relative overflow-hidden"
+                className={`group bg-white rounded-2xl p-6 border border-slate-100 shadow-sm hover:shadow-xl hover:-translate-y-1 transition-all duration-300 cursor-pointer flex flex-col h-full relative overflow-hidden ${learningMode === 'easy' ? 'hover:border-amber-200' : 'hover:border-indigo-200'}`}
               >
-                {/* Decorative Element */}
-                <div className="absolute top-0 right-0 w-16 h-16 bg-blue-50 rounded-bl-full -z-10 group-hover:bg-blue-100 transition-colors"></div>
+                {/* Background Decor */}
+                <div className={`absolute top-0 right-0 w-24 h-24 bg-gradient-to-br ${themeStyles.bgGradient} opacity-50 rounded-bl-full -z-10 group-hover:scale-110 transition-transform`}></div>
 
-                <div className="flex justify-between items-start mb-3">
-                  <h3 className="text-lg font-extrabold text-slate-800 group-hover:text-blue-700 transition-colors pr-2">
-                    {item.term}
-                  </h3>
-                  <span className="bg-slate-100 text-slate-500 text-[10px] font-bold px-2 py-1 rounded uppercase tracking-wider border border-slate-200 whitespace-nowrap">
+                <div className="flex items-center gap-3 mb-4">
+                  <div className={`p-2 rounded-lg border ${themeStyles.bgLight} ${themeStyles.textMain} ${learningMode === 'easy' ? 'border-amber-100/50' : 'border-indigo-100/50'}`}>
+                    {getCategoryIcon(item.category)}
+                  </div>
+                  <span className="text-[10px] font-extrabold text-slate-500 uppercase tracking-wider">
                     {item.category}
                   </span>
                 </div>
                 
-                <div className="flex-grow space-y-3 mt-2">
-                  <div>
-                    <p className="text-xs font-bold text-slate-400 mb-1 flex items-center gap-1"><BookOpen className="w-3 h-3"/> ID</p>
-                    <p className="text-sm text-slate-600 leading-relaxed line-clamp-2">{item.shortId}</p>
-                  </div>
-                  <div className="pt-3 border-t border-slate-100">
-                    <p className="text-xs font-bold text-blue-400 mb-1 flex items-center gap-1"><BookOpen className="w-3 h-3"/> EN</p>
-                    <p className="text-sm text-slate-500 leading-relaxed italic line-clamp-2">{item.shortEn}</p>
-                  </div>
-                </div>
+                <h3 className={`text-lg font-black text-slate-800 transition-colors mb-2 ${learningMode === 'easy' ? 'group-hover:text-amber-600' : 'group-hover:text-indigo-600'}`}>
+                  {item.term}
+                </h3>
+                
+                <p className="text-slate-600 text-sm leading-relaxed flex-grow line-clamp-3">
+                  {getText(item, 'short', language, learningMode)}
+                </p>
 
-                <div className="mt-4 pt-3 border-t border-transparent flex items-center text-xs font-bold text-blue-600 opacity-0 group-hover:opacity-100 transition-opacity">
-                  Baca detail <ChevronRight className="w-4 h-4 ml-1" />
+                <div className={`mt-5 flex items-center text-xs font-bold opacity-0 group-hover:opacity-100 transition-opacity ${themeStyles.textMain}`}>
+                  {language === 'id' ? 'Baca Selengkapnya' : 'Read More'} <ChevronRight className="w-4 h-4 ml-1" />
                 </div>
               </div>
             ))
           ) : (
             <div className="col-span-full py-16 text-center bg-white rounded-3xl border border-dashed border-slate-300">
-              <Briefcase className="w-16 h-16 text-slate-300 mx-auto mb-4" />
-              <h3 className="text-xl font-bold text-slate-700">Istilah tidak ditemukan</h3>
-              <p className="text-slate-500 mt-2">Coba gunakan kata kunci lain untuk mencari di dalam kamus ini.</p>
+              <Search className="w-16 h-16 text-slate-300 mx-auto mb-4" />
+              <h3 className="text-xl font-bold text-slate-700">
+                {language === 'id' ? 'Istilah tidak ditemukan' : 'Term not found'}
+              </h3>
+              <p className="text-slate-500 mt-2">
+                {language === 'id' ? 'Coba gunakan kata kunci atau kategori lain.' : 'Try using different keywords or categories.'}
+              </p>
             </div>
           )}
         </div>
@@ -1276,87 +1411,97 @@ export default function App() {
 
       {/* FOOTER */}
       <footer className="border-t border-slate-200 bg-white py-8 mt-12 text-center text-slate-500 text-sm">
-        <p className="font-medium">© {new Date().getFullYear()} Darrell Economics — Education Financial Literacy</p>
-        <p className="text-xs mt-1 opacity-70">Sistem kamus cerdas interaktif untuk mempermudah menghafal istilah ekonomi.</p>
+        <p className="font-bold text-slate-700 mb-1">© {new Date().getFullYear()} Darrell Economics</p>
+        <p className="text-xs mt-1 opacity-80">Education Financial Literacy — SMAN 76 Jakarta</p>
       </footer>
 
       {/* MODAL / POPUP DETAIL */}
-      {selectedTerm.term && (
-        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/60 backdrop-blur-sm transition-opacity">
-          
+      {selectedTerm && (
+        <div className="fixed inset-0 z-50 flex items-center justify-center p-4 sm:p-6">
           <div 
-            className="bg-white rounded-3xl w-full max-w-2xl max-h-[85vh] flex flex-col shadow-2xl relative animate-in fade-in zoom-in duration-200"
-            onClick={(e) => e.stopPropagation()}
-          >
+            className="absolute inset-0 bg-slate-900/60 backdrop-blur-sm transition-opacity" 
+            onClick={closeModal}
+          ></div>
+          <div className="relative bg-white rounded-3xl shadow-2xl w-full max-w-2xl max-h-[90vh] flex flex-col transform transition-all duration-300 animate-in fade-in zoom-in">
             
-            {/* Modal Header */}
-            <div className="flex items-center justify-between p-5 border-b border-slate-100">
-              <div className="flex items-center gap-3">
-                <div className="bg-blue-100 p-2 rounded-lg">
-                  <LineChart className="w-6 h-6 text-blue-700" />
+            {/* Header Modal */}
+            <div className="flex items-center justify-between p-6 md:p-8 border-b border-slate-100 relative overflow-hidden rounded-t-3xl">
+              <div className={`absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r ${themeStyles.modalGradient}`}></div>
+              
+              <div className="flex items-center gap-4 z-10">
+                <div className={`p-3 rounded-xl border ${themeStyles.bgLight} ${themeStyles.borderLight}`}>
+                  {getCategoryIcon(selectedTerm.category)}
                 </div>
                 <div>
-                  <h2 className="text-xl md:text-2xl font-extrabold text-slate-900 leading-tight">
+                  <h2 className="text-2xl md:text-3xl font-black text-slate-900 leading-tight">
                     {selectedTerm.term}
                   </h2>
-                  <span className="inline-block mt-1 bg-blue-50 text-blue-600 text-xs font-bold px-2 py-0.5 rounded border border-blue-100">
-                    Kategori: {selectedTerm.category}
+                  <span className={`inline-block mt-1.5 text-xs font-bold px-2.5 py-1 rounded-md uppercase tracking-wider ${themeStyles.bgLight} ${themeStyles.textMain}`}>
+                    {selectedTerm.category}
                   </span>
                 </div>
               </div>
               <button 
                 onClick={closeModal}
-                className="p-2 bg-slate-100 hover:bg-red-100 hover:text-red-600 text-slate-500 rounded-full transition-colors flex-shrink-0"
-                aria-label="Tutup"
+                className="p-2.5 bg-slate-50 hover:bg-red-50 hover:text-red-600 text-slate-400 rounded-full transition-colors flex-shrink-0 z-10"
               >
-                <X className="w-5 h-5 md:w-6 md:h-6" strokeWidth={2.5} />
+                <X className="w-5 h-5 md:w-6 md:h-6" strokeWidth={3} />
               </button>
             </div>
 
-            {/* Modal Content */}
-            <div className="p-5 md:p-6 overflow-y-auto custom-scrollbar flex-grow">
-              
-              <div className="mb-6 relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-blue-500 rounded-l-lg"></div>
-                <div className="bg-blue-50/50 rounded-r-2xl p-5 border border-blue-100 border-l-0">
-                  <h4 className="text-sm font-extrabold text-blue-800 uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <span className="w-6 h-4 bg-blue-600 text-white flex items-center justify-center rounded-[3px] text-[10px]">ID</span>
-                    Penjelasan Detail
+            {/* Content Modal */}
+            <div className="p-6 md:p-8 overflow-y-auto custom-scrollbar flex-grow bg-slate-50">
+              <div className="space-y-6">
+                
+                {/* Short Summary Card */}
+                <div className="bg-white rounded-2xl p-5 border border-slate-200 shadow-sm relative">
+                  <div className={`absolute left-0 top-0 bottom-0 w-1.5 rounded-l-2xl ${learningMode === 'easy' ? 'bg-amber-400' : 'bg-indigo-500'}`}></div>
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-3 ml-2 flex items-center gap-2">
+                    <span className="w-5 h-4 bg-slate-800 text-white flex items-center justify-center rounded text-[9px]">{language.toUpperCase()}</span>
+                    {language === 'id' ? 'Ringkasan Singkat' : 'Short Summary'}
                   </h4>
-                  <p className="text-slate-700 leading-relaxed text-[15px] md:text-base">
-                    {selectedTerm.detailId}
+                  <p className="text-slate-800 font-bold text-lg md:text-xl leading-relaxed ml-2">
+                    {getText(selectedTerm, 'short', language, learningMode)}
                   </p>
                 </div>
-              </div>
 
-              <div className="relative">
-                <div className="absolute left-0 top-0 bottom-0 w-1 bg-slate-800 rounded-l-lg"></div>
-                <div className="bg-slate-50 rounded-r-2xl p-5 border border-slate-200 border-l-0">
-                  <h4 className="text-sm font-extrabold text-slate-700 uppercase tracking-wider mb-2 flex items-center gap-2">
-                    <span className="w-6 h-4 bg-slate-800 text-white flex items-center justify-center rounded-[3px] text-[10px]">EN</span>
-                    English Definition
+                {/* Detailed Explanation */}
+                <div className="pl-2">
+                  <h4 className="text-xs font-black uppercase tracking-widest text-slate-400 mb-3">
+                    {language === 'id' ? 'Penjelasan Lengkap' : 'Detailed Explanation'}
                   </h4>
-                  <p className="text-slate-600 leading-relaxed italic text-[15px] md:text-base">
-                    "{selectedTerm.detailEn}"
+                  <p className="text-slate-600 text-base md:text-lg leading-loose">
+                    {getText(selectedTerm, 'detail', language, learningMode)}
                   </p>
                 </div>
-              </div>
 
+              </div>
             </div>
+
+            {/* Footer Modal */}
+            <div className="bg-white px-6 py-5 md:px-8 border-t border-slate-100 flex justify-between items-center rounded-b-3xl">
+              <span className="text-sm font-bold text-slate-400 flex items-center gap-1.5">
+                {learningMode === 'easy' ? <Star className="w-4 h-4 text-amber-500" /> : <Briefcase className="w-4 h-4 text-indigo-500" />}
+                {learningMode === 'easy' ? 'Mode Mudah (Easy)' : 'Mode Profesional (Pro)'}
+              </span>
+              <button 
+                onClick={closeModal}
+                className={`px-6 py-2.5 text-white rounded-xl text-sm font-bold transition-colors shadow-lg ${themeStyles.buttonBg}`}
+              >
+                {language === 'id' ? 'Tutup Penjelasan' : 'Close Details'}
+              </button>
+            </div>
+
           </div>
-          
-          <div className="absolute inset-0 -z-10" onClick={closeModal}></div>
         </div>
       )}
 
-      {/* Global Styles */}
       <style dangerouslySetInnerHTML={{__html: `
         .custom-scrollbar::-webkit-scrollbar {
           width: 8px;
         }
         .custom-scrollbar::-webkit-scrollbar-track {
-          background: #f1f5f9; 
-          border-radius: 8px;
+          background: #f8fafc; 
         }
         .custom-scrollbar::-webkit-scrollbar-thumb {
           background: #cbd5e1; 
